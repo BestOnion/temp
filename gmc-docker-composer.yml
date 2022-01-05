@@ -1,0 +1,27 @@
+version: "2"
+services:
+  gmc:
+    container_name: gmc
+    image: registry.cn-hangzhou.aliyuncs.com/giikin/deploy_laravel_nginx_php74:v1.2
+    stdin_open: true
+    tty: true
+    restart: always
+    ports:
+      - "8081:8081"
+      - "443:443"
+    volumes:
+      - ~/work/jky/gmc:/opt/www:rw
+    environment:
+      APP_ENV: local
+  redis:
+    image: redis
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    environment:
+      TZ: "Asia/Shanghai"
+networks:
+  default:
+    external:
+      name: gmc

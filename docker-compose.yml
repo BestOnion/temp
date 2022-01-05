@@ -1,0 +1,168 @@
+version: "2"
+services:
+  hyperf_demo:
+    container_name: hyperf_demo
+    image:  registry.cn-hangzhou.aliyuncs.com/giimall/swoole
+    stdin_open: true
+    tty: true
+    restart: always
+    ports:
+     - "9500:9500"
+    volumes:
+     - ~/work/jky/hyperf-demo:/hyperf-demo/:rw
+  domain_center:
+    container_name: domain_center 
+    image: registry.cn-hangzhou.aliyuncs.com/giimall/swoole
+    stdin_open: true
+    tty: true
+    restart: always
+    ports:
+      - "9508:9508"
+    volumes:
+      - ~/work/jky/domain_center:/domain_center/:rw
+  marketing:
+    container_name: marketing 
+    image: registry.cn-hangzhou.aliyuncs.com/giimall/swoole 
+    stdin_open: true
+    tty: true
+    restart: always
+    ports:
+      - "9504:9504"
+    volumes:
+      - ~/work/jky/marketing:/marketing/:rw
+
+  marketing_remote:
+    container_name: marketing_remote 
+    image: registry.cn-hangzhou.aliyuncs.com/giimall/swoole 
+    stdin_open: true
+    tty: true
+    restart: always
+    ports:
+      - "9505:9505"
+    volumes:
+      - ~/work/jky/marketing-remote:/marketing-remote/:rw
+    networks:
+      - redis_net
+
+ 
+  blog_center:
+    container_name: blog_center 
+    image: registry.cn-hangzhou.aliyuncs.com/giimall/swoole
+    stdin_open: true
+    tty: true
+    restart: always
+    ports:
+      - "9506:9506"
+      - "7668:7668"
+    volumes:
+      - ~/work/jky/blog_center:/blog_center/:rw
+    networks:
+      - redis_net
+  blog_remote:
+    container_name: blog_remote 
+    image: registry.cn-hangzhou.aliyuncs.com/giimall/swoole 
+    stdin_open: true
+    tty: true
+    restart: always
+    ports:
+      - "9507:9507"
+    volumes:
+      - ~/work/jky/blog_remote:/blog_remote/:rw
+  reviews:
+    container_name: reviews
+    image:  registry.cn-hangzhou.aliyuncs.com/giimall/swoole 
+    stdin_open: true
+    tty: true
+    restart: always
+    ports:
+      - "9511:9511"
+      - "9512:9512"
+    volumes:
+      - ~/work/jky/reviews:/reviews/:rw
+
+  translate:
+    container_name: translate 
+    image: registry.cn-hangzhou.aliyuncs.com/giimall/swoole 
+    stdin_open: true
+    tty: true
+    restart: always
+    ports:
+      - "9509:9509"
+      - "9510:9510"
+    volumes:
+      - ~/work/jky/translate:/translate/:rw
+    networks:
+      - redis_net
+  baidu_translate:
+    container_name: baidu_translate 
+    image: registry.cn-hangzhou.aliyuncs.com/giimall/swoole 
+    stdin_open: true
+    tty: true
+    restart: always
+    ports:
+      - "9513:9513"
+      - "9514:9514"
+    volumes:
+      - ~/work/jky/baidu_translate:/baidu_translate/:rw
+    networks:
+      - redis_net
+  seo:
+    container_name: seo
+    image: registry.cn-hangzhou.aliyuncs.com/giimall/swoole 
+    stdin_open: true
+    tty: true
+    restart: always
+    ports:
+      - "9515:9515"
+      - "9516:9516"
+    volumes:
+      - ~/work/jky/seo_center:/seo/:rw
+    networks:
+      - redis_net
+  copy_center:
+    container_name: copy_center
+    image: registry.cn-hangzhou.aliyuncs.com/giimall/swoole 
+    stdin_open: true
+    tty: true
+    restart: always
+    ports:
+      - "9517:9517"
+      - "9518:9518"
+    volumes:
+      - ~/work/jky/copy_center:/copy_center/:rw
+    networks:
+      - redis_net
+  payment:
+    container_name: payment
+    image: registry.cn-hangzhou.aliyuncs.com/giimall/swoole 
+    stdin_open: true
+    tty: true
+    restart: always
+    ports:
+      - "6888:6888"
+      - "9888:9888"
+    volumes:
+      - ~/work/jky/payment_center:/payment_center/:rw
+    networks:
+      - redis_net
+   
+#consul:
+    #image: consul
+    #container_name: consul
+    #ports:
+     # - "8500:8500"
+    #restart: always
+    #redis:
+    #image: redis
+    #container_name: redis
+    #ports:
+    # - "6379:6379"
+    #environment:
+    # TZ: "Asia/Shanghai"
+        
+networks:
+  default:
+    external:
+      name: jky
+  redis_net:
+    external: true

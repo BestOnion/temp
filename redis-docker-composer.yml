@@ -1,0 +1,11 @@
+version: "3"
+services:
+  redis:
+    image: redis
+    container_name: redis
+    networks:
+      - default
+      - redis_net
+networks:
+  redis_net:
+    external: true
